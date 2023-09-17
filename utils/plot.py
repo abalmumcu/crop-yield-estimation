@@ -27,7 +27,7 @@ def plot_index(indx,df_date,size=(8,8),save_path="",plt_color='r-o',plt_title=""
     plt.title(plt_title)
     plt.locator_params(axis='x', nbins=10)
     if save_path != "":
-        plt.savefig(save_path+".png")
+        plt.savefig(save_path)
     plt.show()
 
 
