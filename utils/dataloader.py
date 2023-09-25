@@ -1,6 +1,7 @@
 import glob
 import pandas as pd
 import numpy as np
+import multiprocessing
 
 class DatasetLoader:
     def __init__(self,dataset_folder_path):
@@ -109,4 +110,28 @@ class DatasetLoader:
 
         full_dataset = full_dataset.reset_index(drop=True)
         full_dataset.rename(columns={'index':'Date'}, inplace=True)
+        return full_dataset
+
+    def parallel_data_preprocessing(self, dataset_dict, datasets ,dataset_number):
+        results = []
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            for state in dataset_dict.keys():
+                for city in dataset_dict[state]:                
+                    result = pool.apply_async(self.data_preprocessing, (datasets, dataset_number, state, city))
+                    results.append(result)
+
+            pool.close()
+            pool.join()
+
+        combined_dataset = pd.concat([result.get() for result in results], ignore_index=True)
+        return combined_dataset
+
+    def combine_datasets_parallel(self, datasets, dataset_dict, total_dataset_number):
+        tmp = []
+        for dataset_number in range(total_dataset_number):
+            tmp.append(self.parallel_data_preprocessing(dataset_dict, datasets ,dataset_number))
+        full_dataset = pd.concat(tmp, ignore_index=True)
+
+        full_dataset = full_dataset.reset_index(drop=True)
+        full_dataset.rename(columns={'index': 'Date'}, inplace=True)
         return full_dataset
