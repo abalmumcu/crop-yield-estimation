@@ -1,7 +1,7 @@
 # Crop Yield Estimation with Machine Learning
 
 <p align="center">
-    <img src="images/crop_yield.jpeg" width="400">
+    <img src="data/crop_yield.jpeg" width="400">
 </p>
 
 
