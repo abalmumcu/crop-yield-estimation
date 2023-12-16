@@ -1,0 +1,12 @@
+geopy==2.3.0
+keras==2.9.0
+matplotlib==3.5.2
+numpy==1.22.4
+optuna==3.4.0
+pandas==1.4.3
+plotly==5.10.0
+scikit_learn==1.1.2
+shap==0.41.0
+tensorlow==2.9.2
+tensorflow_addons==0.21.0
+xgboost==1.7.5
