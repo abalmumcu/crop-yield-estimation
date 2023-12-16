@@ -7,7 +7,7 @@
 
 ## Project Summary
 
-Crop yield estimation plays a pivotal role in agricultural decision-making, impacting both farmers and the broader agricultural industry. Leveraging the power of artificial intelligence and remote sensing data, our project, "Crop Yield Estimation," focuses on predicting cotton crop yields in the field. We employ various machine learning techniques, including Multi-layer Perceptron (MLP), Random Forest (RF), Long Short-Term Memory (LSTM), and XGBoost, to provide accurate yield predictions.
+Crop yield estimation plays a pivotal role in agricultural decision-making, impacting both farmers and the broader agricultural industry. Leveraging the power of artificial intelligence and remote sensing data, our project, "Crop Yield Estimation," focuses on predicting cotton crop yields in the field. We employ various machine learning techniques, including Multi-layer Perceptron (MLP), Long Short-Term Memory (LSTM), and XGBoost, to provide accurate yield predictions.
 
 ### Motivation
 
@@ -37,9 +37,8 @@ These data sources collectively form the basis for our machine learning models.
 We explore the following machine learning methods for crop yield prediction:
 
 1. **Multi-layer Perceptron (MLP)**: A feedforward neural network model.
-2. **Random Forest (RF)**: An ensemble learning technique based on decision trees.
-3. **Long Short-Term Memory (LSTM)**: A type of recurrent neural network (RNN) suitable for time-series data.
-4. **XGBoost**: A gradient boosting algorithm known for its efficiency and accuracy.
+2. **Long Short-Term Memory (LSTM)**: A type of recurrent neural network (RNN) suitable for time-series data.
+3. **XGBoost**: A gradient boosting algorithm known for its efficiency and accuracy.
 
 ### Evaluation Metrics
 
