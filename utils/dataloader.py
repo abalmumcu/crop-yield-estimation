@@ -7,12 +7,6 @@ class DatasetLoader:
         self.dataset_folder = dataset_folder_path
         self.datasets = []
         self.state_names = {}
-        self.window_size = 7   # Length of the moving average filter
-        self.static_feature_names = ["Sand", "Silt", "Clay",
-                                    "Bulk density",
-                                    "Coarse fragments",
-                                    "Total Nitrogen", "pH", 
-                                    "CEC", "SOC", "OCD", "OCS"] 
         
     def load_all_pickle_dataset(self):
         all_dataset = glob.glob(self.dataset_folder+'/*.pkl')
