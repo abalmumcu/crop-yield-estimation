@@ -101,8 +101,37 @@ class DataProcessing:
         
         return vector_df, mean_df
     
+    # def train_test_split_wscaler(self,target,df_vector):
+    #     from sklearn.model_selection import train_test_split 
+    #     from sklearn.preprocessing import MinMaxScaler
+        
+    #     scaler = []
+    #     train_test = []
+    #     np_train = df_vector.drop(target,axis=1).to_numpy()
+    #     np_test = df_vector[target].to_numpy()
+
+    #     X_train, X_test, y_train, y_test = train_test_split(np_train, np_test, test_size=0.20, random_state=42)
+
+    #     scalerx = MinMaxScaler()
+    #     scalerx.fit(X_train)
+    #     X_train_minmax_scaled= scalerx.transform(X_train)
+    #     X_test_minmax_scaled = scalerx.transform(X_test)
+        
+    #     scalery = MinMaxScaler()
+    #     scalery.fit(y_train.reshape(-1, 1))
+    #     y_train_minmax_scaled = scalery.transform(y_train.reshape(-1, 1))
+    #     y_test_minmax_scaled = scalery.transform(y_test.reshape(-1, 1))
+    #     test_minmax_scaled = scalery.transform(np_test.reshape(-1, 1))
+        
+    #     scaler.append([scalerx, scalery])
+
+    #     train_test.append([X_train_minmax_scaled,X_test_minmax_scaled,y_train_minmax_scaled,y_test_minmax_scaled,test_minmax_scaled])
+        
+    #     return scaler,train_test
+
+
     def train_test_split_wscaler(self,target,df_vector):
-        from sklearn.model_selection import train_test_split 
+        from sklearn.model_selection import train_test_split , KFold
         from sklearn.preprocessing import MinMaxScaler
         
         scaler = []
@@ -110,22 +139,31 @@ class DataProcessing:
         np_train = df_vector.drop(target,axis=1).to_numpy()
         np_test = df_vector[target].to_numpy()
 
-        X_train, X_test, y_train, y_test = train_test_split(np_train, np_test, test_size=0.20, random_state=42)
+        X_train, X_test_val, y_train, y_test_val = train_test_split(np_train, np_test, test_size=0.25, random_state=42)
+        X_test, X_val, y_test, y_val = train_test_split(X_test_val, y_test_val, test_size=0.5, random_state=42)
 
         scalerx = MinMaxScaler()
         scalerx.fit(X_train)
         X_train_minmax_scaled= scalerx.transform(X_train)
         X_test_minmax_scaled = scalerx.transform(X_test)
-        
+        X_val_minmax_scaled = scalerx.transform(X_val)
+
+        np_train_minmax_scaled = scalerx.transform(np_train)
+
         scalery = MinMaxScaler()
         scalery.fit(y_train.reshape(-1, 1))
         y_train_minmax_scaled = scalery.transform(y_train.reshape(-1, 1))
         y_test_minmax_scaled = scalery.transform(y_test.reshape(-1, 1))
+        y_val_minmax_scaled = scalery.transform(y_val.reshape(-1, 1))
         test_minmax_scaled = scalery.transform(np_test.reshape(-1, 1))
         
+        np_test_minmax_scaled = scalery.transform(np_test.reshape(-1, 1))
+        
+        kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
         scaler.append([scalerx, scalery])
 
-        train_test.append([X_train_minmax_scaled,X_test_minmax_scaled,y_train_minmax_scaled,y_test_minmax_scaled,test_minmax_scaled])
+        train_test.append([X_train_minmax_scaled,X_test_minmax_scaled,y_train_minmax_scaled,y_test_minmax_scaled,test_minmax_scaled,X_val_minmax_scaled, y_val_minmax_scaled, kf, np_train_minmax_scaled ,np_test_minmax_scaled])
         
         return scaler,train_test
     
